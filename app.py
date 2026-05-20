@@ -19,25 +19,25 @@ from portfolio_content import (
 )
 
 BASE_DIR = Path(__file__).resolve().parent
-CSS_PATH = BASE_DIR / "static" / "css" / "site.css"
+BASE_CSS_PATH = BASE_DIR / "static" / "css" / "site.css"
+IMPROVED_CSS_PATH = BASE_DIR / "static" / "css" / "site_improved.css"
 CV_STATIC_URL = "/app/static/docs/ibrahim-mohamed-ghouse-cv.pdf"
 NAV_ITEMS = [
-    ("about", "About"),
     ("experience", "Experience"),
     ("projects", "Projects"),
-    ("education", "Education"),
-    ("skills", "Skills"),
+    ("credentials", "Credentials"),
     ("contact", "Contact"),
 ]
 
 
 @st.cache_data(show_spinner=False)
-def read_css_text(path: Path) -> str:
+def _read_css(path: Path) -> str:
     return path.read_text(encoding="utf-8")
 
 
 def load_css() -> None:
-    st.markdown(f"<style>{read_css_text(CSS_PATH)}</style>", unsafe_allow_html=True)
+    st.markdown(f"<style>{_read_css(BASE_CSS_PATH)}</style>", unsafe_allow_html=True)
+    st.markdown(f"<style>{_read_css(IMPROVED_CSS_PATH)}</style>", unsafe_allow_html=True)
 
 
 def inject_scroll_behavior() -> None:
@@ -169,20 +169,20 @@ def inject_scroll_behavior() -> None:
     )
 
 
-def stagger_class(index: int) -> str:
+def _stagger(index: int) -> str:
     return f"stagger-{(index % 5) + 1}"
 
 
-def render_list(items: list[str], list_class: str) -> str:
+def _list(items: list[str], list_class: str) -> str:
     points = "".join(f"<li>{html.escape(item)}</li>" for item in items)
     return f'<ul class="{list_class}">{points}</ul>'
 
 
-def render_nav() -> str:
+def _nav() -> str:
     return "".join(f'<a href="#{anchor}">{html.escape(label)}</a>' for anchor, label in NAV_ITEMS)
 
 
-def render_hero_name() -> str:
+def _hero_name() -> str:
     return (
         '<h1 class="hero-name-editorial">'
         f"<span>{html.escape(PROFILE['first_name'])}</span>"
@@ -192,7 +192,7 @@ def render_hero_name() -> str:
     )
 
 
-def render_meta_pills() -> str:
+def _meta_pills() -> str:
     items = [
         html.escape(PROFILE["location"]),
         f'<a href="tel:{html.escape(PROFILE["phone_href"])}">{html.escape(PROFILE["phone_display"])}</a>',
@@ -201,12 +201,12 @@ def render_meta_pills() -> str:
     return "".join(f"<li>{item}</li>" for item in items)
 
 
-def render_stats() -> str:
+def _stats() -> str:
     cards = []
     for index, item in enumerate(HERO_STATS):
         cards.append(
             f"""
-            <article class="stat-card reveal reveal-scale {stagger_class(index)}">
+            <article class="stat-card reveal reveal-scale {_stagger(index)}">
               <h3>{html.escape(item["value"])}</h3>
               <p>{html.escape(item["label"])}</p>
             </article>
@@ -215,14 +215,14 @@ def render_stats() -> str:
     return "".join(cards)
 
 
-def render_focus_chips(items: list[str]) -> str:
+def _focus_chips() -> str:
     chips = []
-    for index, item in enumerate(items):
-        chips.append(f'<span class="chip reveal reveal-scale {stagger_class(index)}">{html.escape(item)}</span>')
+    for index, item in enumerate(FOCUS_AREAS):
+        chips.append(f'<span class="chip reveal reveal-scale {_stagger(index)}">{html.escape(item)}</span>')
     return "".join(chips)
 
 
-def render_certifications() -> str:
+def _certifications() -> str:
     cards = []
     for index, item in enumerate(CERTIFICATIONS):
         status_markup = ""
@@ -230,7 +230,7 @@ def render_certifications() -> str:
             status_markup = f'<span class="cert-status">{html.escape(item["status"])}</span>'
         cards.append(
             f"""
-            <article class="cert-card reveal reveal-up {stagger_class(index)}">
+            <article class="cert-card reveal reveal-up {_stagger(index)}">
               <div class="cert-topline">
                 <p class="cert-code">{html.escape(item["code"])}</p>
                 {status_markup}
@@ -243,12 +243,12 @@ def render_certifications() -> str:
     return "".join(cards)
 
 
-def render_experiences() -> str:
+def _experiences() -> str:
     rows = []
     for index, item in enumerate(EXPERIENCE):
         rows.append(
             f"""
-            <article class="experience-row reveal reveal-up {stagger_class(index)}">
+            <article class="experience-row reveal reveal-up {_stagger(index)}">
               <div class="experience-meta">
                 <p class="experience-period">{html.escape(item["period"])}</p>
                 <p class="experience-org">{html.escape(item["company"])}</p>
@@ -256,7 +256,7 @@ def render_experiences() -> str:
               <div class="experience-body">
                 <h3>{html.escape(item["role"])}</h3>
                 <p class="experience-overview">{html.escape(item["overview"])}</p>
-                {render_list(item["bullets"], "bullet-list")}
+                {_list(item["bullets"], "bullet-list")}
               </div>
             </article>
             """
@@ -264,13 +264,13 @@ def render_experiences() -> str:
     return "".join(rows)
 
 
-def render_projects() -> str:
+def _projects() -> str:
     cards = []
     for index, item in enumerate(PROJECTS):
         if item.get("placeholder"):
             cards.append(
                 f"""
-                <article class="project-card project-card-placeholder reveal reveal-scale {stagger_class(index)}">
+                <article class="project-card project-card-placeholder reveal reveal-scale {_stagger(index)}">
                   <div class="project-placeholder-inner">
                     <p class="project-index">{html.escape(item["eyebrow"])}</p>
                     <h3 class="project-name">{html.escape(item["name"])}</h3>
@@ -283,7 +283,7 @@ def render_projects() -> str:
         tags = "".join(f'<span class="project-tag">{html.escape(tag)}</span>' for tag in item["stack"])
         cards.append(
             f"""
-            <article class="project-card reveal reveal-up {stagger_class(index)}">
+            <article class="project-card reveal reveal-up {_stagger(index)}">
               <p class="project-index">{index + 1:03d}</p>
               <h3 class="project-name">{html.escape(item["name"])}</h3>
               <p class="project-body">{html.escape(item["summary"])}</p>
@@ -294,16 +294,15 @@ def render_projects() -> str:
     return "".join(cards)
 
 
-def render_education() -> str:
+def _education() -> str:
     cards = []
     for index, item in enumerate(EDUCATION):
         badge = ""
         if item.get("badge"):
             badge = f'<p class="education-badge">{html.escape(item["badge"])}</p>'
-
         cards.append(
             f"""
-            <article class="education-card reveal reveal-up {stagger_class(index)}">
+            <article class="education-card reveal reveal-up {_stagger(index)}">
               <div class="education-years">{html.escape(item["period"])}</div>
               <div class="education-content">
                 {badge}
@@ -317,13 +316,13 @@ def render_education() -> str:
     return "".join(cards)
 
 
-def render_skill_groups() -> str:
+def _skill_groups() -> str:
     rows = []
     for index, group in enumerate(SKILL_GROUPS):
         pills = "".join(f'<span class="skill-pill">{html.escape(item)}</span>' for item in group["items"])
         rows.append(
             f"""
-            <article class="skill-row reveal reveal-up {stagger_class(index)}">
+            <article class="skill-row reveal reveal-up {_stagger(index)}">
               <p class="skill-category">{html.escape(group["category"])}</p>
               <div class="skill-items">{pills}</div>
             </article>
@@ -332,13 +331,12 @@ def render_skill_groups() -> str:
     return "".join(rows)
 
 
-def render_contact_rows() -> str:
+def _contact_rows() -> str:
     rows = [
         ("Email", PROFILE["email"], f'mailto:{PROFILE["email"]}'),
         ("Phone", PROFILE["phone_display"], f'tel:{PROFILE["phone_href"]}'),
         ("Location", PROFILE["location"], ""),
     ]
-
     if PROFILE.get("linkedin_url"):
         rows.append(("LinkedIn", "View profile", PROFILE["linkedin_url"]))
     if PROFILE.get("github_url"):
@@ -351,10 +349,9 @@ def render_contact_rows() -> str:
             value_markup = f'<a class="contact-value" href="{html.escape(href)}">{value_markup}</a>'
         else:
             value_markup = f'<span class="contact-value">{value_markup}</span>'
-
         rendered.append(
             f"""
-            <div class="contact-row reveal reveal-up {stagger_class(index)}">
+            <div class="contact-row reveal reveal-up {_stagger(index)}">
               <span class="contact-label">{html.escape(label)}</span>
               {value_markup}
             </div>
@@ -369,7 +366,7 @@ def render_hero(cv_href: str) -> str:
       <div class="hero-grid hero-grid-editorial">
         <div class="hero-copy hero-copy-editorial reveal reveal-left is-visible">
           <p class="hero-eyebrow">{html.escape(PROFILE["hero_eyebrow"])}</p>
-          {render_hero_name()}
+          {_hero_name()}
           <p class="hero-bio">{html.escape(PROFILE["headline"])}</p>
           <p class="hero-summary">{html.escape(PROFILE["subheadline"])}</p>
 
@@ -380,7 +377,7 @@ def render_hero(cv_href: str) -> str:
           </div>
 
           <ul class="hero-meta reveal reveal-up stagger-3" aria-label="Contact details">
-            {render_meta_pills()}
+            {_meta_pills()}
           </ul>
         </div>
 
@@ -390,37 +387,14 @@ def render_hero(cv_href: str) -> str:
           <p>{html.escape(PROFILE["summary"])}</p>
 
           <div class="stat-grid">
-            {render_stats()}
+            {_stats()}
           </div>
 
           <div class="hero-panel-block reveal reveal-up stagger-4">
             <p class="panel-label panel-label-light">Focus areas</p>
             <div class="chip-wrap" aria-label="Focus areas">
-              {render_focus_chips(FOCUS_AREAS)}
+              {_focus_chips()}
             </div>
-          </div>
-        </aside>
-      </div>
-    </section>
-    """
-
-
-def render_about_section() -> str:
-    paragraphs = "".join(f"<p>{html.escape(paragraph)}</p>" for paragraph in SUMMARY_PARAGRAPHS)
-    return f"""
-    <section class="section" id="about">
-      <div class="section-heading reveal reveal-up">
-        <p class="eyebrow">Summary</p>
-        <h2>Technical depth, business instinct, and applied AI work built to solve real problems.</h2>
-      </div>
-      <div class="summary-grid">
-        <div class="summary-copy reveal reveal-up stagger-1">
-          {paragraphs}
-        </div>
-        <aside class="cert-column">
-          <p class="eyebrow reveal reveal-up stagger-2">Certifications</p>
-          <div class="cert-stack">
-            {render_certifications()}
           </div>
         </aside>
       </div>
@@ -430,13 +404,13 @@ def render_about_section() -> str:
 
 def render_experience_section() -> str:
     return f"""
-    <section class="section" id="experience">
+    <section class="section section-tight" id="experience">
       <div class="section-heading reveal reveal-up">
         <p class="eyebrow">Experience</p>
-        <h2>Research, positioning, and hands-on delivery in work that sits close to real users.</h2>
+        <h2>Research, positioning, and hands-on delivery across client-facing and applied AI work.</h2>
       </div>
-      <div class="experience-list">
-        {render_experiences()}
+      <div class="experience-list experience-list-compact">
+        {_experiences()}
       </div>
     </section>
     """
@@ -444,41 +418,57 @@ def render_experience_section() -> str:
 
 def render_projects_section() -> str:
     return f"""
-    <section class="section section-featured" id="projects">
-      <div class="section-heading reveal reveal-up">
-        <p class="eyebrow">Projects</p>
-        <h2>Selected builds across telemetry analytics, multi-agent AI, and embedded computer vision.</h2>
+    <section class="section section-tight section-featured" id="projects">
+      <div class="project-rail-header reveal reveal-up">
+        <div class="section-heading section-heading-compact">
+          <p class="eyebrow">Projects</p>
+          <h2>Selected builds across telemetry analytics, multi-agent AI, and embedded computer vision.</h2>
+        </div>
+        <p class="project-rail-hint">
+          Swipe or scroll sideways to explore the work.
+        </p>
       </div>
-      <div class="project-card-grid">
-        {render_projects()}
-      </div>
-    </section>
-    """
-
-
-def render_education_section() -> str:
-    return f"""
-    <section class="section" id="education">
-      <div class="section-heading reveal reveal-up">
-        <p class="eyebrow">Education</p>
-        <h2>Academic grounding in AI, data, software engineering, and systems thinking.</h2>
-      </div>
-      <div class="education-stack">
-        {render_education()}
+      <div class="project-rail-shell reveal reveal-up stagger-2">
+        <div class="project-rail" aria-label="Project gallery">
+          {_projects()}
+        </div>
       </div>
     </section>
     """
 
 
-def render_skills_section() -> str:
+def render_credentials_section() -> str:
     return f"""
-    <section class="section" id="skills">
+    <section class="section section-tight" id="credentials">
       <div class="section-heading reveal reveal-up">
-        <p class="eyebrow">Skills</p>
-        <h2>Technical, analytical, and client-facing strengths that support end-to-end delivery.</h2>
+        <p class="eyebrow">Credentials</p>
+        <h2>Education, certifications, and technical strengths supporting practical delivery.</h2>
       </div>
-      <div class="skills-list">
-        {render_skill_groups()}
+      <div class="credentials-layout">
+        <div class="credentials-column">
+          <div class="credentials-subheading reveal reveal-up stagger-1">
+            <p class="eyebrow">Education</p>
+          </div>
+          <div class="education-stack education-stack-compact">
+            {_education()}
+          </div>
+        </div>
+        <div class="credentials-column">
+          <div class="credentials-subheading reveal reveal-up stagger-2">
+            <p class="eyebrow">Certifications</p>
+          </div>
+          <div class="cert-stack cert-stack-compact">
+            {_certifications()}
+          </div>
+        </div>
+      </div>
+      <div class="skills-cluster">
+        <div class="credentials-subheading reveal reveal-up stagger-3">
+          <p class="eyebrow">Skills</p>
+        </div>
+        <div class="skills-list skills-list-compact">
+          {_skill_groups()}
+        </div>
       </div>
     </section>
     """
@@ -501,7 +491,7 @@ def render_contact_section(cv_href: str) -> str:
           </div>
         </div>
         <div class="contact-info-grid">
-          {render_contact_rows()}
+          {_contact_rows()}
         </div>
       </div>
     </section>
@@ -513,7 +503,7 @@ def render_footer() -> str:
     <footer class="site-footer">
       <div class="footer-inner">
         <p>{html.escape(PROFILE["name"])} <span>/</span> {datetime.now().year}</p>
-        <p>Dark-mode Streamlit portfolio with motion, richer content, and editorial structure.</p>
+        <p>Abu Dhabi, United Arab Emirates</p>
       </div>
     </footer>
     """
@@ -521,7 +511,7 @@ def render_footer() -> str:
 
 def build_page(cv_href: str) -> str:
     return f"""
-    <div class="portfolio-root">
+    <div class="portfolio-root portfolio-improved">
       <header class="site-header reveal reveal-down is-visible">
         <div class="header-inner">
           <a class="brand" href="#top" aria-label="Go to top of page">
@@ -532,18 +522,16 @@ def build_page(cv_href: str) -> str:
             </span>
           </a>
           <nav class="site-nav" aria-label="Primary">
-            {render_nav()}
+            {_nav()}
           </nav>
         </div>
       </header>
 
       <main id="main-content">
-        {render_hero(cv_href)}
-        {render_about_section()}
+        {render_hero(CV_STATIC_URL)}
         {render_experience_section()}
         {render_projects_section()}
-        {render_education_section()}
-        {render_skills_section()}
+        {render_credentials_section()}
         {render_contact_section(cv_href)}
       </main>
 
