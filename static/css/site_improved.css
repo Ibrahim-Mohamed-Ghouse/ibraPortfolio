@@ -1,0 +1,215 @@
+.portfolio-improved .block-container {
+  max-width: 1320px;
+  padding-bottom: 5rem;
+}
+
+.portfolio-improved .site-header {
+  margin-bottom: 1.8rem;
+}
+
+.portfolio-improved .hero {
+  padding: 1rem 0 1.5rem;
+}
+
+.portfolio-improved .hero-copy-editorial {
+  padding: 3.4rem 3.2rem 3rem;
+}
+
+.portfolio-improved .hero-name-editorial {
+  font-size: clamp(4.7rem, 10vw, 8rem);
+}
+
+.portfolio-improved .hero-bio {
+  max-width: 38rem;
+  font-size: clamp(1.16rem, 2.1vw, 1.66rem);
+}
+
+.portfolio-improved .hero-summary {
+  max-width: 44rem;
+}
+
+.portfolio-improved .hero-panel {
+  padding: 2rem 2.2rem;
+}
+
+.portfolio-improved .contact-card {
+  padding: 1.9rem 2rem;
+}
+
+.portfolio-improved .section {
+  padding-top: 4rem;
+}
+
+.portfolio-improved .section-tight {
+  padding-top: 3.6rem;
+}
+
+.portfolio-improved .section-heading {
+  margin-bottom: 1.8rem;
+}
+
+.portfolio-improved .section-heading-compact {
+  margin-bottom: 0;
+}
+
+.portfolio-improved .experience-list-compact {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1rem;
+}
+
+.portfolio-improved .experience-list-compact .experience-row {
+  height: 100%;
+  padding: 1.8rem 1.9rem;
+}
+
+.portfolio-improved .experience-list-compact .experience-body h3 {
+  font-size: 2.1rem;
+}
+
+.portfolio-improved .project-rail-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  gap: 1.25rem;
+  margin-bottom: 1rem;
+}
+
+.portfolio-improved .project-rail-header .section-heading {
+  max-width: 48rem;
+}
+
+.portfolio-improved .project-rail-hint {
+  max-width: 26rem;
+  color: var(--ink-muted);
+  font-size: 0.95rem;
+}
+
+.portfolio-improved .project-rail-shell {
+  position: relative;
+}
+
+.portfolio-improved .project-rail {
+  display: grid;
+  grid-auto-flow: column;
+  grid-auto-columns: minmax(24rem, 31rem);
+  gap: 1rem;
+  overflow-x: auto;
+  overscroll-behavior-x: contain;
+  scroll-snap-type: x proximity;
+  padding-bottom: 0.8rem;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(121, 225, 207, 0.35) rgba(255, 255, 255, 0.05);
+}
+
+.portfolio-improved .project-rail::-webkit-scrollbar {
+  height: 10px;
+}
+
+.portfolio-improved .project-rail::-webkit-scrollbar-track {
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 999px;
+}
+
+.portfolio-improved .project-rail::-webkit-scrollbar-thumb {
+  background: rgba(121, 225, 207, 0.35);
+  border-radius: 999px;
+}
+
+.portfolio-improved .project-rail .project-card {
+  scroll-snap-align: start;
+  height: 100%;
+  padding: 2rem;
+}
+
+.portfolio-improved .project-rail .project-card-placeholder {
+  min-height: 100%;
+}
+
+.portfolio-improved .credentials-layout {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1rem;
+  align-items: start;
+}
+
+.portfolio-improved .credentials-column,
+.portfolio-improved .skills-cluster {
+  border: 1px solid var(--line);
+  border-radius: var(--radius-xl);
+  background:
+    linear-gradient(180deg, rgba(16, 30, 46, 0.94), rgba(8, 15, 24, 0.92));
+  box-shadow: var(--shadow);
+  padding: 1.7rem 1.8rem;
+}
+
+.portfolio-improved .credentials-subheading {
+  margin-bottom: 1rem;
+}
+
+.portfolio-improved .education-stack-compact,
+.portfolio-improved .cert-stack-compact,
+.portfolio-improved .skills-list-compact {
+  gap: 0.85rem;
+}
+
+.portfolio-improved .education-stack-compact .education-card,
+.portfolio-improved .skills-list-compact .skill-row {
+  padding: 1.5rem 1.6rem;
+}
+
+.portfolio-improved .cert-stack-compact .cert-card {
+  min-height: 8rem;
+  padding: 1.1rem 1.15rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.portfolio-improved .skills-cluster {
+  margin-top: 1rem;
+}
+
+.portfolio-improved .contact-card {
+  grid-template-columns: minmax(0, 1fr) minmax(18rem, 0.85fr);
+  gap: 1.5rem;
+}
+
+.portfolio-improved .contact-info-grid {
+  max-width: none;
+}
+
+@media (max-width: 960px) {
+  .portfolio-improved .experience-list-compact,
+  .portfolio-improved .credentials-layout,
+  .portfolio-improved .contact-card {
+    grid-template-columns: 1fr;
+  }
+
+  .portfolio-improved .project-rail-header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .portfolio-improved .project-rail {
+    grid-auto-columns: minmax(19rem, 84vw);
+  }
+}
+
+@media (max-width: 720px) {
+  .portfolio-improved .hero-copy-editorial,
+  .portfolio-improved .hero-panel,
+  .portfolio-improved .credentials-column,
+  .portfolio-improved .skills-cluster,
+  .portfolio-improved .contact-card {
+    padding: 1.5rem;
+  }
+
+  .portfolio-improved .hero-name-editorial {
+    font-size: clamp(3.65rem, 15vw, 5.5rem);
+  }
+
+  .portfolio-improved .project-rail {
+    grid-auto-columns: minmax(17rem, 88vw);
+  }
+}

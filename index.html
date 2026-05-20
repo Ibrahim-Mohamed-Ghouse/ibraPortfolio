@@ -1,0 +1,518 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Ibrahim Mohamed Ghouse — CS & AI</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;1,400;1,500&family=IBM+Plex+Sans:wght@300;400;500&family=IBM+Plex+Mono:wght@300;400&display=swap" rel="stylesheet"/>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --white:#ffffff;
+  --off:#f7f6f3;
+  --border:#e2e0da;
+  --ink:#1a1917;
+  --ink2:#4a4845;
+  --ink3:#9a9793;
+  --accent:#1a4a8a;
+  --accent-light:#eef2f9;
+  --serif:'Playfair Display',Georgia,serif;
+  --sans:'IBM Plex Sans',sans-serif;
+  --mono:'IBM Plex Mono',monospace;
+}
+html{scroll-behavior:smooth}
+body{background:var(--white);color:var(--ink);font-family:var(--sans);-webkit-font-smoothing:antialiased}
+
+/* NAV */
+nav{
+  position:fixed;top:0;left:0;right:0;z-index:100;
+  display:flex;justify-content:space-between;align-items:center;
+  padding:0 4rem;height:60px;
+  background:rgba(255,255,255,0.94);
+  backdrop-filter:blur(12px);
+  border-bottom:1px solid var(--border);
+}
+.nav-name{font-family:var(--sans);font-size:0.85rem;font-weight:500;letter-spacing:0.04em;color:var(--ink)}
+.nav-links{display:flex;gap:2.5rem}
+.nav-links a{font-size:0.78rem;font-weight:400;color:var(--ink3);text-decoration:none;letter-spacing:0.04em;text-transform:uppercase;transition:color 0.2s}
+.nav-links a:hover{color:var(--accent)}
+
+/* HERO — full width, name-first */
+#hero{
+  min-height:100vh;
+  padding-top:60px;
+  display:flex;flex-direction:column;justify-content:center;
+  padding-left:4rem;padding-right:4rem;
+  border-bottom:1px solid var(--border);
+  max-width:900px;
+}
+.hero-eyebrow{
+  font-family:var(--mono);font-size:0.72rem;font-weight:300;
+  color:var(--ink3);letter-spacing:0.14em;text-transform:uppercase;
+  margin-bottom:2rem;
+}
+.hero-name{
+  font-family:var(--serif);
+  font-size:clamp(3.5rem,7vw,7rem);
+  font-weight:400;line-height:1.0;
+  letter-spacing:-0.02em;
+  margin-bottom:2.5rem;
+}
+.hero-name em{font-style:italic;color:var(--accent)}
+.hero-bio{
+  font-size:1.05rem;line-height:1.85;color:var(--ink2);
+  font-weight:300;max-width:580px;margin-bottom:3rem;
+}
+.hero-actions{display:flex;gap:1rem;flex-wrap:wrap}
+.btn-primary{
+  display:inline-block;padding:0.7rem 1.8rem;
+  background:var(--accent);color:var(--white);
+  font-family:var(--sans);font-size:0.8rem;font-weight:500;
+  letter-spacing:0.06em;text-transform:uppercase;text-decoration:none;
+  border:1px solid var(--accent);transition:background 0.2s,color 0.2s;
+}
+.btn-primary:hover{background:var(--ink);border-color:var(--ink)}
+.btn-outline{
+  display:inline-block;padding:0.7rem 1.8rem;
+  background:transparent;color:var(--ink);
+  font-family:var(--sans);font-size:0.8rem;font-weight:500;
+  letter-spacing:0.06em;text-transform:uppercase;text-decoration:none;
+  border:1px solid var(--border);transition:border-color 0.2s,color 0.2s;
+}
+.btn-outline:hover{border-color:var(--ink);color:var(--ink)}
+
+/* SECTIONS */
+.section-wrap{padding:6rem 4rem;border-bottom:1px solid var(--border)}
+.section-wrap.alt{background:var(--off)}
+.section-header{display:flex;align-items:baseline;gap:1.5rem;margin-bottom:4rem}
+.section-num{font-family:var(--mono);font-size:0.7rem;font-weight:300;color:var(--ink3);letter-spacing:0.12em}
+.section-title{font-family:var(--serif);font-size:clamp(1.8rem,3vw,2.6rem);font-weight:400;letter-spacing:-0.01em}
+
+/* ABOUT / SUMMARY */
+.about-cols{display:grid;grid-template-columns:2fr 1fr;gap:5rem;align-items:start}
+.about-text p{font-size:1rem;line-height:1.85;color:var(--ink2);font-weight:300;margin-bottom:1.2rem}
+.about-text p strong{color:var(--ink);font-weight:500}
+.cert-stack{display:flex;flex-direction:column;gap:0.75rem}
+.cert-card{padding:1rem 1.2rem;border:1px solid var(--border);background:var(--white);transition:border-color 0.2s,box-shadow 0.2s}
+.cert-card:hover{border-color:var(--accent);box-shadow:2px 2px 0 var(--accent-light)}
+.cert-code{font-family:var(--mono);font-size:0.7rem;font-weight:400;color:var(--accent);letter-spacing:0.1em;margin-bottom:0.3rem}
+.cert-name{font-size:0.85rem;font-weight:500;color:var(--ink);margin-bottom:0.1rem}
+.cert-issuer{font-family:var(--mono);font-size:0.7rem;font-weight:300;color:var(--ink3)}
+
+/* EXPERIENCE */
+.exp-row{display:grid;grid-template-columns:200px 1fr;gap:4rem;padding:2.5rem 0;border-bottom:1px solid var(--border)}
+.exp-row:first-of-type{border-top:1px solid var(--border)}
+.exp-period{font-family:var(--mono);font-size:0.72rem;font-weight:300;color:var(--ink3);letter-spacing:0.06em;line-height:1.6}
+.exp-org{font-family:var(--mono);font-size:0.72rem;font-weight:400;color:var(--accent);letter-spacing:0.06em;margin-top:0.3rem}
+.exp-role{font-family:var(--serif);font-size:1.25rem;font-weight:400;margin-bottom:1.2rem}
+.exp-points{list-style:none;display:flex;flex-direction:column;gap:0.5rem}
+.exp-points li{font-size:0.88rem;line-height:1.75;color:var(--ink2);font-weight:300;padding-left:1.2rem;position:relative}
+.exp-points li::before{content:'—';position:absolute;left:0;color:var(--border)}
+
+/* PROJECTS */
+.project-grid{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--border);border:1px solid var(--border)}
+.project-card{background:var(--white);padding:2.5rem;transition:background 0.2s}
+.project-card:hover{background:var(--accent-light)}
+.project-index{font-family:var(--mono);font-size:0.65rem;font-weight:300;color:var(--ink3);letter-spacing:0.12em;margin-bottom:1.5rem}
+.project-name{font-family:var(--serif);font-size:1.35rem;font-weight:400;line-height:1.2;margin-bottom:1rem}
+.project-body{font-size:0.85rem;line-height:1.8;color:var(--ink2);font-weight:300;margin-bottom:1.5rem}
+.project-tags{display:flex;flex-wrap:wrap;gap:0.4rem}
+.ptag{font-family:var(--mono);font-size:0.65rem;font-weight:300;color:var(--ink3);letter-spacing:0.06em;border:1px solid var(--border);padding:0.2rem 0.6rem}
+
+/* EDUCATION */
+.edu-stack{display:flex;flex-direction:column;gap:1px;background:var(--border);border:1px solid var(--border)}
+.edu-card{
+  background:var(--white);
+  display:grid;grid-template-columns:200px 1fr;gap:4rem;
+  padding:2rem 2.5rem;
+  transition:background 0.2s;
+}
+.edu-card:hover{background:var(--accent-light)}
+.edu-years{font-family:var(--mono);font-size:0.68rem;font-weight:300;color:var(--ink3);letter-spacing:0.1em;padding-top:0.2rem}
+.edu-badge{
+  display:inline-block;margin-bottom:0.6rem;
+  font-family:var(--mono);font-size:0.65rem;font-weight:400;
+  color:var(--accent);letter-spacing:0.1em;text-transform:uppercase;
+  border:1px solid var(--accent-light);background:var(--accent-light);
+  padding:0.15rem 0.6rem;
+}
+.edu-degree{font-family:var(--serif);font-size:1.15rem;font-weight:400;margin-bottom:0.3rem}
+.edu-school{font-size:0.85rem;font-weight:500;color:var(--ink);margin-bottom:0.4rem}
+.edu-detail{font-family:var(--mono);font-size:0.72rem;font-weight:300;color:var(--ink3)}
+
+/* SKILLS */
+.skills-table{width:100%;border-collapse:collapse}
+.skills-table tr{border-bottom:1px solid var(--border)}
+.skills-table tr:first-child{border-top:1px solid var(--border)}
+.skills-table td{padding:1rem 0;vertical-align:top}
+.skill-cat{font-family:var(--mono);font-size:0.68rem;font-weight:300;color:var(--ink3);text-transform:uppercase;letter-spacing:0.1em;width:180px;padding-top:1.05rem!important}
+.skill-items{display:flex;flex-wrap:wrap;gap:0.5rem}
+.skill-pill{display:inline-block;padding:0.3rem 0.9rem;border:1px solid var(--border);font-size:0.78rem;font-weight:400;color:var(--ink2);background:var(--white);transition:border-color 0.2s,color 0.2s}
+.skill-pill:hover{border-color:var(--accent);color:var(--accent)}
+
+/* CONTACT */
+#contact{padding:8rem 4rem;border-bottom:1px solid var(--border)}
+.contact-inner{max-width:700px}
+.contact-heading{font-family:var(--serif);font-size:clamp(2.5rem,5vw,4.5rem);font-weight:400;line-height:1.05;letter-spacing:-0.02em;margin-bottom:2.5rem}
+.contact-heading em{font-style:italic;color:var(--accent)}
+.contact-info{display:flex;flex-direction:column;gap:0.8rem;margin-bottom:3rem}
+.contact-row{display:flex;gap:1.5rem;align-items:center}
+.contact-label{font-family:var(--mono);font-size:0.68rem;font-weight:300;color:var(--ink3);letter-spacing:0.12em;text-transform:uppercase;width:80px;flex-shrink:0}
+.contact-val{font-size:0.9rem;color:var(--ink);text-decoration:none;transition:color 0.2s}
+.contact-val:hover{color:var(--accent)}
+
+footer{padding:1.5rem 4rem;display:flex;justify-content:space-between;align-items:center}
+footer span{font-family:var(--mono);font-size:0.68rem;font-weight:300;color:var(--ink3);letter-spacing:0.06em}
+
+/* ── PAGE LOAD: hero entrance ── */
+@keyframes fadeUp{from{opacity:0;transform:translateY(28px)}to{opacity:1;transform:none}}
+@keyframes fadeIn{from{opacity:0}to{opacity:1}}
+
+.hero-eyebrow{opacity:0;animation:fadeIn 0.6s 0.15s ease forwards}
+.hero-name{opacity:0;animation:fadeUp 0.85s 0.3s cubic-bezier(0.22,1,0.36,1) forwards}
+.hero-bio{opacity:0;animation:fadeUp 0.75s 0.55s cubic-bezier(0.22,1,0.36,1) forwards}
+.hero-actions{opacity:0;animation:fadeUp 0.65s 0.75s ease forwards}
+
+/* ── SCROLL REVEALS ── */
+.reveal{
+  opacity:0;
+  transform:translateY(32px);
+  transition:opacity 0.75s cubic-bezier(0.22,1,0.36,1),
+             transform 0.75s cubic-bezier(0.22,1,0.36,1);
+}
+.reveal.vis{opacity:1;transform:none}
+
+/* ── SECTION HEADER: accent underline wipe ── */
+.section-header{position:relative;padding-bottom:1.5rem;margin-bottom:3rem}
+.section-header::after{
+  content:'';position:absolute;bottom:0;left:0;
+  height:1px;width:0;background:var(--accent);
+  transition:width 0.8s cubic-bezier(0.22,1,0.36,1) 0.2s;
+}
+.section-header.vis::after{width:60px}
+
+/* ── CARD HOVER LIFTS ── */
+.project-card{
+  transition:background 0.25s ease,transform 0.25s ease,box-shadow 0.25s ease;
+}
+.project-card:hover{
+  background:var(--accent-light);
+  transform:translateY(-3px);
+  box-shadow:0 8px 24px rgba(26,74,138,0.08);
+}
+.cert-card{transition:border-color 0.2s,box-shadow 0.2s,transform 0.2s}
+.cert-card:hover{border-color:var(--accent);box-shadow:2px 2px 0 var(--accent-light);transform:translateX(3px)}
+.edu-card{transition:background 0.2s ease,transform 0.2s ease}
+.edu-card:hover{background:var(--accent-light);transform:translateX(3px)}
+
+/* ── SKILL PILL ── */
+.skill-pill{transition:border-color 0.2s,color 0.2s,transform 0.15s}
+.skill-pill:hover{border-color:var(--accent);color:var(--accent);transform:translateY(-1px)}
+
+/* ── BUTTONS ── */
+.btn-primary{transition:background 0.2s,border-color 0.2s,transform 0.15s}
+.btn-primary:hover{transform:translateY(-1px)}
+.btn-outline{transition:border-color 0.2s,color 0.2s,transform 0.15s}
+.btn-outline:hover{transform:translateY(-1px)}
+
+/* ── NAV LINK UNDERLINE ── */
+.nav-links a{position:relative}
+.nav-links a::after{content:'';position:absolute;bottom:-2px;left:0;width:0;height:1px;background:var(--accent);transition:width 0.25s ease}
+.nav-links a:hover::after{width:100%}
+
+/* ── CONTACT HOVER ── */
+.contact-val{transition:color 0.2s,letter-spacing 0.2s}
+.contact-val:hover{color:var(--accent);letter-spacing:0.01em}
+
+@media(max-width:900px){
+  nav{padding:0 1.5rem}
+  .nav-links{gap:1.2rem}
+  #hero{padding:5rem 1.5rem 4rem}
+  .section-wrap{padding:4rem 1.5rem}
+  .about-cols{grid-template-columns:1fr;gap:3rem}
+  .exp-row{grid-template-columns:1fr;gap:0.5rem}
+  .edu-card{grid-template-columns:1fr;gap:0.4rem}
+  .project-grid{grid-template-columns:1fr}
+  #contact{padding:5rem 1.5rem}
+  footer{padding:1.5rem}
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <span class="nav-name">Ibrahim Mohamed Ghouse</span>
+  <div class="nav-links">
+    <a href="#summary">About</a>
+    <a href="#experience">Experience</a>
+    <a href="#projects">Projects</a>
+    <a href="#education">Education</a>
+    <a href="#contact">Contact</a>
+  </div>
+</nav>
+
+<!-- HERO: full-width, name dominant -->
+<section id="hero">
+  <p class="hero-eyebrow">CS & AI · Abu Dhabi, UAE · Available for opportunities</p>
+  <h1 class="hero-name">Ibrahim<br><em>Mohamed</em><br>Ghouse</h1>
+  <p class="hero-bio">Computer Science & AI graduate blending technical depth with business strategy. From deploying real-time computer vision systems to building AI-powered F1 race tools — I work at the intersection of engineering and client-facing problem solving.</p>
+  <div class="hero-actions">
+    <a href="#projects" class="btn-primary">View Projects</a>
+    <a href="/cdn-cgi/l/email-protection#69000b1b08010004470e01061c1a0c010b290e04080005470a0604" class="btn-outline">Get in Touch</a>
+  </div>
+</section>
+
+<!-- 01 SUMMARY -->
+<section id="summary" class="section-wrap alt">
+  <div class="section-header reveal">
+    <span class="section-num">01</span>
+    <h2 class="section-title">Summary</h2>
+  </div>
+  <div class="about-cols">
+    <div class="about-text reveal">
+      <p>Recent graduate blending <strong>technical expertise with business insight</strong>, backed by pre-sales experience at Alpha Data and hands-on delivery of a real-time computer vision system. Eager to drive client-focused solutions in dynamic environments.</p>
+      <p>At <strong>Alpha Data</strong>, I worked in a pre-sales capacity — researching vendor ecosystems, mapping emerging technologies to client needs, and contributing to solution positioning. That experience gave me something most engineers don't have early in their careers: an understanding of how technology gets bought, not just built.</p>
+      <p>I'm currently deepening my expertise with a <strong>Masters in AI and Data Science</strong> at the University of Liverpool, building on a foundation of shipped projects spanning machine learning pipelines, multi-agent AI systems, and embedded computer vision.</p>
+    </div>
+    <div class="reveal">
+      <p style="font-family:var(--mono);font-size:0.68rem;font-weight:300;color:var(--ink3);letter-spacing:0.12em;text-transform:uppercase;margin-bottom:1rem;">Certifications</p>
+      <div class="cert-stack">
+        <div class="cert-card">
+          <div class="cert-code">AZ-900</div>
+          <div class="cert-name">Azure Fundamentals</div>
+          <div class="cert-issuer">Microsoft</div>
+        </div>
+        <div class="cert-card">
+          <div class="cert-code">DP-900</div>
+          <div class="cert-name">Data Fundamentals</div>
+          <div class="cert-issuer">Microsoft</div>
+        </div>
+        <div class="cert-card">
+          <div class="cert-code">AI-900</div>
+          <div class="cert-name">AI Fundamentals</div>
+          <div class="cert-issuer">Microsoft</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 02 WORK EXPERIENCE -->
+<section id="experience" class="section-wrap">
+  <div class="section-header reveal">
+    <span class="section-num">02</span>
+    <h2 class="section-title">Work Experience</h2>
+  </div>
+
+  <div class="exp-row reveal">
+    <div>
+      <div class="exp-period">Sept 2024 — Jan 2025</div>
+      <div class="exp-org">Alpha Data</div>
+    </div>
+    <div>
+      <div class="exp-role">Pre-Sales Intern</div>
+      <ul class="exp-points">
+        <li>Conducted in-depth research on vendor ecosystems, market trends, and emerging enterprise technologies</li>
+        <li>Developed insight into market needs and aligned them with relevant digital transformation strategies</li>
+        <li>Proposed pre-sales initiatives by analysing competitors and contributing to solution positioning</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="exp-row reveal">
+    <div>
+      <div class="exp-period">2025</div>
+      <div class="exp-org">Hackathon</div>
+    </div>
+    <div>
+      <div class="exp-role">Pit Wall — Atlassian × Williams Racing</div>
+      <ul class="exp-points">
+        <li>Built and deployed a multi-agent AI race strategy companion end-to-end at a competitive hackathon</li>
+        <li>Designed, configured, and integrated four Airia agents with distinct Claude models and reasoning modes</li>
+        <li>Shipped a live frontend connected to all agents, deployed to Vercel with CORS resolution and fallback UI</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- 03 PROJECTS -->
+<section id="projects" class="section-wrap alt">
+  <div class="section-header reveal">
+    <span class="section-num">03</span>
+    <h2 class="section-title">Projects</h2>
+  </div>
+
+  <div class="project-grid reveal">
+    <div class="project-card">
+      <div class="project-index">001</div>
+      <div class="project-name">F1 Telemetry Anomaly Detection System</div>
+      <p class="project-body">An end-to-end ML pipeline for detecting anomalous laps in Formula 1 telemetry, built on the OpenF1 API. Six Python stages handle session fetching, IQR-based statistical detection, telemetry collection, and XGBoost model training across 14 signals. A Streamlit dashboard adds a predictive layer: rolling 0–100 degradation risk scoring and a lap-by-lap replay slider simulating live anomaly probability.</p>
+      <div class="project-tags">
+        <span class="ptag">Python</span><span class="ptag">XGBoost</span><span class="ptag">Streamlit</span><span class="ptag">OpenF1 API</span><span class="ptag">ML</span><span class="ptag">Anomaly Detection</span>
+      </div>
+    </div>
+
+    <div class="project-card">
+      <div class="project-index">002</div>
+      <div class="project-name">Pit Wall — Williams Racing AI Strategy Companion</div>
+      <p class="project-body">Hackathon-built AI race strategy tool for Atlassian Williams Racing fans. Four Airia agents handle race data retrieval, ranked strategic insights, persona-aware fan chat, and counterfactual scenario analysis — each running a different Claude model with tuned temperature and reasoning mode. Deployed live to Vercel with full agent integration and resilient fallback UI.</p>
+      <div class="project-tags">
+        <span class="ptag">Airia</span><span class="ptag">Claude Sonnet/Haiku</span><span class="ptag">Multi-Agent</span><span class="ptag">HTML/JS</span><span class="ptag">Vercel</span><span class="ptag">Hackathon</span>
+      </div>
+    </div>
+
+    <div class="project-card">
+      <div class="project-index">003</div>
+      <div class="project-name">Anti Avian Creature Voidance System</div>
+      <p class="project-body">A real-time bird detection and deterrence system built on Raspberry Pi. OpenCV computer vision runs alongside radar and ultrasonic sensors to detect avian intrusions, with live data routed to a custom PyQt dashboard for control and visualisation. A full-stack embedded project spanning hardware interfacing, image processing, and application UI.</p>
+      <div class="project-tags">
+        <span class="ptag">Python</span><span class="ptag">OpenCV</span><span class="ptag">Raspberry Pi</span><span class="ptag">PyQt</span><span class="ptag">Embedded</span><span class="ptag">Computer Vision</span>
+      </div>
+    </div>
+
+    <div class="project-card" style="background:var(--off);display:flex;align-items:center;justify-content:center;min-height:260px">
+      <div style="text-align:center">
+        <div style="font-family:var(--mono);font-size:0.68rem;font-weight:300;color:var(--ink3);letter-spacing:0.12em;margin-bottom:0.5rem">NEXT</div>
+        <div style="font-family:var(--serif);font-size:1rem;font-weight:400;color:var(--ink3)">In progress</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 04 EDUCATION -->
+<section id="education" class="section-wrap">
+  <div class="section-header reveal">
+    <span class="section-num">04</span>
+    <h2 class="section-title">Education</h2>
+  </div>
+  <div class="edu-stack reveal">
+    <div class="edu-card">
+      <div class="edu-years">2025 — Present</div>
+      <div>
+        <div class="edu-badge">Current</div>
+        <div class="edu-degree">MSc Artificial Intelligence & Data Science</div>
+        <div class="edu-school">University of Liverpool</div>
+        <div class="edu-detail">In progress</div>
+      </div>
+    </div>
+    <div class="edu-card">
+      <div class="edu-years">Sep 2022 — Jul 2025</div>
+      <div>
+        <div class="edu-degree">BSc Computer Science & Artificial Intelligence</div>
+        <div class="edu-school">University of Birmingham Dubai</div>
+        <div class="edu-detail">Honours: 2:2 · Artificial Intelligence, Security</div>
+      </div>
+    </div>
+    <div class="edu-card">
+      <div class="edu-years">Sep 2010 — May 2022</div>
+      <div>
+        <div class="edu-degree">International Baccalaureate</div>
+        <div class="edu-school">Abu Dhabi International School</div>
+        <div class="edu-detail">Score: 34</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 05 SKILLS & CERTS -->
+<section id="skills" class="section-wrap alt">
+  <div class="section-header reveal">
+    <span class="section-num">05</span>
+    <h2 class="section-title">Skills</h2>
+  </div>
+  <table class="skills-table reveal">
+    <tr>
+      <td class="skill-cat">Engineering</td>
+      <td><div class="skill-items">
+        <span class="skill-pill">Python</span>
+        <span class="skill-pill">OpenCV</span>
+        <span class="skill-pill">XGBoost</span>
+        <span class="skill-pill">PyQt</span>
+        <span class="skill-pill">Streamlit</span>
+        <span class="skill-pill">Raspberry Pi</span>
+        <span class="skill-pill">Embedded Systems</span>
+      </div></td>
+    </tr>
+    <tr>
+      <td class="skill-cat">AI & Data</td>
+      <td><div class="skill-items">
+        <span class="skill-pill">Machine Learning</span>
+        <span class="skill-pill">Anomaly Detection</span>
+        <span class="skill-pill">Feature Engineering</span>
+        <span class="skill-pill">Computer Vision</span>
+        <span class="skill-pill">Multi-Agent LLMs</span>
+        <span class="skill-pill">Prompt Engineering</span>
+      </div></td>
+    </tr>
+    <tr>
+      <td class="skill-cat">Cloud & Infra</td>
+      <td><div class="skill-items">
+        <span class="skill-pill">Microsoft Azure</span>
+        <span class="skill-pill">Vercel</span>
+        <span class="skill-pill">REST APIs</span>
+        <span class="skill-pill">JSON Schema</span>
+      </div></td>
+    </tr>
+    <tr>
+      <td class="skill-cat">Business</td>
+      <td><div class="skill-items">
+        <span class="skill-pill">Pre-Sales</span>
+        <span class="skill-pill">Solution Positioning</span>
+        <span class="skill-pill">Market Research</span>
+        <span class="skill-pill">Digital Transformation</span>
+        <span class="skill-pill">Project Management</span>
+      </div></td>
+    </tr>
+  </table>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="contact-inner">
+    <h2 class="contact-heading reveal">Let's work<br>on something<br><em>meaningful.</em></h2>
+    <div class="contact-info reveal">
+      <div class="contact-row">
+        <span class="contact-label">Email</span>
+        <a href="/cdn-cgi/l/email-protection#7d141f0f1c151410531a1512080e18151f3d1a101c1411531e1210" class="contact-val"><span class="__cf_email__" data-cfemail="ff969d8d9e979692d19897908a8c9a979dbf98929e9693d19c9092">[email&#160;protected]</span></a>
+      </div>
+      <div class="contact-row">
+        <span class="contact-label">Phone</span>
+        <a href="tel:+971507809363" class="contact-val">+971 50 780 9363</a>
+      </div>
+      <div class="contact-row">
+        <span class="contact-label">Location</span>
+        <span class="contact-val">Abu Dhabi, UAE</span>
+      </div>
+      <div class="contact-row">
+        <span class="contact-label">LinkedIn</span>
+        <a href="#" class="contact-val">Add your URL →</a>
+      </div>
+      <div class="contact-row">
+        <span class="contact-label">GitHub</span>
+        <a href="#" class="contact-val">Add your URL →</a>
+      </div>
+    </div>
+    <div class="reveal">
+      <a href="#" class="btn-primary">Download CV</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <span>© 2025 Ibrahim Mohamed Ghouse</span>
+  <span>Abu Dhabi, UAE</span>
+</footer>
+
+<script>
+const obs=new IntersectionObserver(entries=>{
+  entries.forEach((e,i)=>{
+    if(e.isIntersecting){
+      setTimeout(()=>e.target.classList.add('vis'),i*90);
+      obs.unobserve(e.target);
+    }
+  });
+},{threshold:0.08,rootMargin:'0px 0px -30px 0px'});
+document.querySelectorAll('.reveal,.section-header').forEach(el=>obs.observe(el));
+</script>
+</body>
+</html>
