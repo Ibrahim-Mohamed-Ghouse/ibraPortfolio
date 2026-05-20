@@ -21,8 +21,8 @@ PROFILE = {
     "email": "ibrahim.ghousehb@gmail.com",
     "phone_display": "+971 50 780 9363",
     "phone_href": "+971507809363",
-    "linkedin_url": "",
-    "github_url": "",
+    "linkedin_url": "https://www.linkedin.com/in/ibrahim-mohamed-ghouse-5620b8247",
+    "github_url": "https://github.com/Ibrahim-Mohamed-Ghouse",
 }
 
 HERO_STATS = [
