@@ -54,8 +54,8 @@
 
 .portfolio-improved .experience-list-compact {
   display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 1rem;
+  grid-template-columns: 1fr;
+  gap: 0;
 }
 
 .portfolio-improved .experience-list-compact .experience-row {
@@ -99,7 +99,7 @@
   scroll-snap-type: x proximity;
   padding-bottom: 0.8rem;
   scrollbar-width: thin;
-  scrollbar-color: rgba(212, 146, 58, 0.35) rgba(255, 255, 255, 0.05);
+  scrollbar-color: rgba(37, 99, 235, 0.35) rgba(0, 0, 0, 0.05);
 }
 
 .portfolio-improved .project-rail::-webkit-scrollbar {
@@ -107,12 +107,12 @@
 }
 
 .portfolio-improved .project-rail::-webkit-scrollbar-track {
-  background: rgba(255, 255, 255, 0.05);
+  background: rgba(0, 0, 0, 0.05);
   border-radius: 999px;
 }
 
 .portfolio-improved .project-rail::-webkit-scrollbar-thumb {
-  background: rgba(212, 146, 58, 0.35);
+  background: rgba(37, 99, 235, 0.35);
   border-radius: 999px;
 }
 
@@ -137,8 +137,7 @@
 .portfolio-improved .skills-cluster {
   border: 1px solid var(--line);
   border-radius: var(--radius-xl);
-  background:
-    linear-gradient(180deg, rgba(26, 22, 18, 0.94), rgba(14, 12, 9, 0.92));
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.97), rgba(248, 249, 251, 0.96));
   box-shadow: var(--shadow);
   padding: 1.7rem 1.8rem;
 }
