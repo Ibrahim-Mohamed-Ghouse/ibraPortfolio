@@ -1,7 +1,7 @@
 PROFILE = {
     "name": "Ibrahim Mohamed Ghouse",
     "first_name": "Ibrahim",
-    "middle_name": "Mohamed",
+    "middle_name": "M.",
     "last_name": "Ghouse",
     "hero_eyebrow": "CS & AI / Abu Dhabi, UAE / Available for opportunities",
     "headline": "Computer Science and AI graduate blending technical depth with business strategy.",
@@ -155,11 +155,6 @@ PROJECTS = [
             "routed to a PyQt dashboard for control and visualisation."
         ),
         "stack": ["Python", "OpenCV", "Raspberry Pi", "PyQt", "Embedded", "Computer Vision"],
-    },
-    {
-        "placeholder": True,
-        "eyebrow": "Next",
-        "name": "In progress",
     },
 ]
 
